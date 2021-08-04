@@ -4,13 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --inspect ./index.js"
+    "dev": "nodemon --inspect --watch src ./index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "pg": "^8.7.1",
     "typeorm": "^0.2.35"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
     "nodemon": "^2.0.12"
   }
 }

@@ -11,4 +11,4 @@ COPY . /home/app
 
 # RUN npm run build
 
-CMD node index.js
+CMD npm run dev
