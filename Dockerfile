@@ -4,11 +4,11 @@ EXPOSE 3000 9229
 WORKDIR /home/app
 
 COPY package.json /home/app/
+COPY yarn.lock /home/app/
 
-RUN npm i
+RUN yarn global add typeorm
+RUN yarn
 
 COPY . /home/app
 
-# RUN npm run build
-
-CMD npm run dev
+CMD ["yarn", "start:docker"]

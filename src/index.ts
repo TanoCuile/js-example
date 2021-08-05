@@ -1,6 +1,9 @@
-const express = require('express');
-const {getAllowedUsers, addUser} = require('./db');
-const {getDB} = require('./db');
+// import {User} from './db/entities/User';
+
+import express from 'express';
+import {join} from 'path';
+import {getAllowedUsers, addUser} from './db';
+// const {getDB} = require('./db');
 
 const server = express();
 
@@ -29,9 +32,9 @@ const actionController = (req, res) => {
 };
 
 async function getCurrentUser(req) {
-  const users = await getAllowedUsers();
+  const users: any[] = await getAllowedUsers();
   const currentUser = users.filter(
-    ({userName, userPass}) =>
+    ({userName, userPass}: {userName: string; userPass: string}) =>
       `${userName}:${userPass}` === req.headers.authorization
   );
   return currentUser[0];
@@ -91,9 +94,12 @@ server.get('/users', authorizeAdminMiddleware, async (req, res) => {
     users: await getAllowedUsers(),
   });
 });
+// console.log(join(process.cwd(), 'public'));
+server.use('/public', express.static(join(process.cwd(), 'public'), {extensions: ['bin']}));
 
-getDB().then(() => {
-  server.listen('3000', () => {
-    console.log('OK');
-  });
+// getDB()
+//   .then(() => {
+server.listen('3000', () => {
+  console.log('OK');
 });
+// });
