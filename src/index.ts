@@ -1,3 +1,5 @@
+import {User} from './db/entities/User';
+
 const express = require('express');
 const {getAllowedUsers, addUser} = require('./db');
 const {getDB} = require('./db');
@@ -92,8 +94,9 @@ server.get('/users', authorizeAdminMiddleware, async (req, res) => {
   });
 });
 
-getDB().then(() => {
-  server.listen('3000', () => {
-    console.log('OK');
+getDB()
+  .then(() => {
+    server.listen('3000', () => {
+      console.log('OK');
+    });
   });
-});
