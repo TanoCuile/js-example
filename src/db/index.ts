@@ -1,21 +1,10 @@
-const fs = require('fs');
 const md5 = require('md5');
-// Usefull `resolve` -> 'dir/dir/../../blah' => `./blah`
-const {join} = require('path');
 
 import {User} from './entities/User';
 import {getDBConnection as getDB} from './typeorm';
 
-// process - is object for interacting with system.
-// It also contains all current process related data
-// `child_process` lib -> parent process
-// `cwd` -> full path to called file
-const DB_BASEPATH = join(process.cwd(), 'db');
-
 async function getUserRepository() {
-  const db = await getDB();
-  const usersRepository = db.getRepository(User);
-  return usersRepository;
+  return (await getDB()).getRepository(User);
 }
 
 async function getDBUsers(): Promise<User[]> {
