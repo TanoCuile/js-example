@@ -1,16 +1,12 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-} from 'typeorm';
-import {Expense} from './Expense';
+import { Exclude } from 'class-transformer';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Expense } from './Expense';
 
 @Entity({
   name: 'users',
 })
 export class User {
-  @PrimaryGeneratedColumn({name: 'id'})
+  @PrimaryGeneratedColumn({ name: 'id' })
   id!: number;
 
   @Column({
@@ -39,6 +35,14 @@ export class User {
     type: String,
   })
   passwd!: string;
+
+  @Column({
+    name: 'role',
+    length: 16,
+    type: String,
+    default: 'USER',
+  })
+  role!: string;
 
   @OneToMany((type) => Expense, (expense) => expense.user)
   expenses!: Expense[];

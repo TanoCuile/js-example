@@ -3,14 +3,15 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
-import {User} from './User';
+import { User } from './User';
 
 @Entity({
   name: 'expenses',
 })
 export class Expense {
-  @PrimaryGeneratedColumn({name: 'id'})
+  @PrimaryGeneratedColumn({ name: 'id' })
   id!: number;
 
   @Column({
@@ -33,5 +34,6 @@ export class Expense {
   time!: number;
 
   @ManyToOne((type) => User, (user) => user.expenses)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user!: User;
 }
