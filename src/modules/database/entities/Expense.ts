@@ -4,7 +4,12 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
+  OneToMany,
+  JoinTable,
 } from 'typeorm';
+import { Note } from './Note';
+import { Tag } from './Tag';
 import { User } from './User';
 
 @Entity({
@@ -32,6 +37,17 @@ export class Expense {
     type: 'int8',
   })
   time!: number;
+
+  @ManyToMany((type) => Tag, { eager: true })
+  @JoinTable({
+    name: 'expense_tags',
+    joinColumn: { name: 'expense_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
+  tags: Tag[];
+
+  @OneToMany(() => Note, (note) => note.expense, { eager: true })
+  notes: Note;
 
   @ManyToOne((type) => User, (user) => user.expenses)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })

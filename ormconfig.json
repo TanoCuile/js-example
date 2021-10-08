@@ -3,17 +3,18 @@
   "username": "expenses_manager",
   "database": "expenses",
   "type": "postgres",
+  "port": 5432,
   "host": "postgres",
   "synchronize": false,
   "logging": true,
-  "entities": ["src/db/entities/**/*.ts"],
-  "migrations": ["src/db/migrations/**/*.ts"],
+  "entities": ["src/modules/database/entities/**/*.ts"],
+  "migrations": ["src/modules/database/migrations/**/*.ts"],
   "subscribers": [],
   "reconnectTries": 50,
   "autoReconnect": true,
   "reconnectInterval": 2000,
   "cli": {
-    "entitiesDir": "src/db/entities",
-    "migrationsDir": "src/db/migrations"
+    "entitiesDir": "src/modules/database/entities",
+    "migrationsDir": "src/modules/database/migrations"
   }
 }

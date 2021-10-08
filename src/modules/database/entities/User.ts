@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Expense } from './Expense';
+import { Note } from './Note';
 
 @Entity({
   name: 'users',
@@ -43,6 +44,9 @@ export class User {
     default: 'USER',
   })
   role!: string;
+
+  @OneToMany(() => Note, (note) => note.expense, { eager: false })
+  notes: Note;
 
   @OneToMany((type) => Expense, (expense) => expense.user)
   expenses!: Expense[];

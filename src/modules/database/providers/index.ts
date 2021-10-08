@@ -6,7 +6,11 @@ import {
   DATABASE_CONNECTION,
   USER_REPOSITORY,
   EXPENSE_REPOSITORY,
+  NOTE_REPOSITORY,
+  TAG_REPOSITORY,
 } from '../database.constants';
+import { Note } from '../entities/Note';
+import { Tag } from '../entities/Tag';
 
 const MAX_RETRIES = 10;
 let tries = 0;
@@ -43,6 +47,18 @@ export const databaseProviders = [
     provide: EXPENSE_REPOSITORY,
     useFactory: (connection: Connection): Repository<Expense> =>
       connection.getRepository(Expense),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: NOTE_REPOSITORY,
+    useFactory: (connection: Connection): Repository<Note> =>
+      connection.getRepository(Note),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: TAG_REPOSITORY,
+    useFactory: (connection: Connection): Repository<Tag> =>
+      connection.getRepository(Tag),
     inject: [DATABASE_CONNECTION],
   },
 ] as Provider[];
